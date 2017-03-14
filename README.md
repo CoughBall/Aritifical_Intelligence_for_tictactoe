@@ -37,7 +37,7 @@ myself for now
 ### Personal note
 
 The number one issue I had that consumed most of the time was getting used to visual studio and Unity designer/API as I use eclipse as my main IDE with Java.
-I had issues like not knowing the quick actions in visual studio which saves me alot of time in eclipse,
+I had issues like not knowing the quick actions in visual studio which saves me alot of time in eclipse.
 debugging was troublesome as well, I got used to eclipse ability to inspect elements as I debug and execute it,
 apprently its not so trivial in visual studio. most of the code I tried to inspect or execute would throw exceptions
 although the same code copied into the classes themself and restarting the game did execute, dont know if this is attributed to Visual Studio and c#
