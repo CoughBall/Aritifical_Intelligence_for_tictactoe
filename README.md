@@ -29,7 +29,7 @@ Mostly google, stackoverflow and unity forums
 - [ ] minimax
 - [ ] prettify
 - [ ] alert messages to the player
-- [ ] refacotr to use only c# conventions
+- [ ] refactor to use only c# conventions
 
 ### Contributors
 myself for now
