@@ -134,7 +134,7 @@ public class GameController : MonoBehaviour
         foreach(GameObject o in positionArr)
         {
             ScriptPosition parentPosition = o.GetComponent<ScriptPosition>();
-            isTie = parentPosition.isClicked ? + 1 : isTie;
+            isTie = parentPosition.isClicked ? isTie + 1 : isTie;
         }
         if(isTie == 9)
         {
