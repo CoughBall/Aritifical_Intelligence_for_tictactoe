@@ -43,7 +43,7 @@ apprently its not so trivial in visual studio. most of the code I tried to inspe
 although the same code copied into the classes themself and restarting the game did execute, dont know if this is attributed to Visual Studio and c#
 or because of Unity. Refactoring proved troublesome as well, as evident by the existing code, needs a cleanup. 
 
-As I Googled my way to solve issues I learned that Unity have their own official tutorial on how to build a tic tac toe game,
+As I Googled my way to solve issues I learned that Unity have their own official tutorial on how to build a tic tac toe game that can be found here https://unity3d.com/learn/tutorials/tic-tac-toe/introduction-and-setting-project,
 although that was a day before I finished so not much use for it. I was surprised to find out that they had some stuff simillar to mine, like the GameController script,
 it serves the same purpose and bears the same name like my script ! maybe I ran into it in some time ago and forgot ?
 
