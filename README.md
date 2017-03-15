@@ -1,7 +1,8 @@
 # unity-tic-tac-toe
 ### Description
 This project is just for fun,
-it contains the source code for a tic tac toe game built with Unity using c# as the scripting language
+it contains the source code for a tic tac toe game built with Unity using c# as the scripting language.
+You can check out the game here: http://washertimemachine.com/tictactoe/
 ### Installation instructions
 Note: this version isn't compiled, if you want this game to work copy the entire contents of this repository into a folder,
 open the folder using unity program (https://unity3d.com/) and build the project to your content
