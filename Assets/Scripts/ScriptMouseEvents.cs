@@ -57,20 +57,28 @@ public class ScriptMouseEvents : MonoBehaviour
 
     void OnMouseDown()
     {
-        GameObject go = GameObject.Find("Scripts");
-        GameController other = (GameController)go.GetComponent(typeof(GameController));
-        if (parentPosition.isClicked == false)
+        if (!isPositionAlreadyClicked())
         {
-            setPlayerXorCircleChoice();
-            if (isCurrentSelectionPlayersChoice())
+            GameObject go = GameObject.Find("Scripts");
+            GameController other = (GameController)go.GetComponent(typeof(GameController));
+            if (parentPosition.isClicked == false)
             {
-                renderPositionClicked(gameObject);
-                other.incrementPlayerPositionScore(parent.name);
+                setPlayerXorCircleChoice();
+                if (isCurrentSelectionPlayersChoice())
+                {
+                    renderPositionClicked(gameObject);
+                    other.incrementPlayerPositionScore(parent.name);
+                }
+                findAFreePositionOnTheBoardAndClickIt();
+                other.incrementOpponentPositionScore(parent.name);
+                other.isGameOver();
             }
-            findAFreePositionOnTheBoardAndClickIt();
-            other.incrementOpponentPositionScore(parent.name);
-            other.isGameOver();
         }
+    }
+
+    private bool isPositionAlreadyClicked()
+    {
+        return render.InvisibleColor.ToString().Equals(render.GetColor().ToString());
     }
 
     private void renderPositionClicked(GameObject position)
