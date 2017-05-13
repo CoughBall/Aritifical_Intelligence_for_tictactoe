@@ -67,10 +67,10 @@ public class ScriptMouseEvents : MonoBehaviour
                 if (isCurrentSelectionPlayersChoice())
                 {
                     renderPositionClicked(gameObject);
-                    other.incrementPlayerPositionScore(parent.name);
+                    other.incrementPositionScore(parent.name, GameController.playerBoard);
                 }
                 findAFreePositionOnTheBoardAndClickIt();
-                other.incrementOpponentPositionScore(parent.name);
+                other.incrementPositionScore(parent.name, GameController.opponentBoard);
                 other.isGameOver();
             }
         }

@@ -2,12 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 
-class TreeNode : IEnumerable<TreeNode>
+public class TreeNode : IEnumerable<TreeNode>
 {
-    private readonly Dictionary<string, TreeNode> _children =
-                                        new Dictionary<string, TreeNode>();
+    private readonly Dictionary<string, TreeNode> _children = new Dictionary<string, TreeNode>();
 
-    public readonly string ID;
+    public readonly string ID; // X or circle
     public TreeNode Parent { get; private set; }
 
     public TreeNode(string id)

@@ -14,9 +14,10 @@ public class GameController : MonoBehaviour
     private Player player;
     public static GameObject[] positionArr;
     public static string playersChoice = "";
-    private Dictionary<BoardPossibleWinScenarios, int> playerBoard = new Dictionary<BoardPossibleWinScenarios, int>();
-    private Dictionary<BoardPossibleWinScenarios, int> opponentBoard = new Dictionary<BoardPossibleWinScenarios, int>();
-    private enum BoardPossibleWinScenarios { firstRow, secondRow, thirdRow, firstColumn, secondColumn, thirdColumn, forwardDiagonal, backDiagonal };
+    private Dictionary<string, bool> gameBoard; //TODO: fill this with the gameboard postions and if they are clicked - send for minimax
+    public static Dictionary<BoardPossibleWinScenarios, int> playerBoard = new Dictionary<BoardPossibleWinScenarios, int>();
+    public static Dictionary<BoardPossibleWinScenarios, int> opponentBoard = new Dictionary<BoardPossibleWinScenarios, int>();
+    public enum BoardPossibleWinScenarios { firstRow, secondRow, thirdRow, firstColumn, secondColumn, thirdColumn, forwardDiagonal, backDiagonal };
     public static bool isPlayersTurn = true;
 
     /*protected static enum boardPicks {
@@ -169,100 +170,51 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void incrementOpponentPositionScore(string positionToIncrement)
+    public void incrementPositionScore(string positionToIncrement, Dictionary<BoardPossibleWinScenarios, int> board)
     {
         switch (positionToIncrement)
         {
             case "[0,0]":
-                opponentBoard[BoardPossibleWinScenarios.firstRow]++;
-                opponentBoard[BoardPossibleWinScenarios.firstColumn]++;
-                opponentBoard[BoardPossibleWinScenarios.backDiagonal]++;
+                board[BoardPossibleWinScenarios.firstRow]++;
+                board[BoardPossibleWinScenarios.firstColumn]++;
+                board[BoardPossibleWinScenarios.backDiagonal]++;
                 break;
             case "[0,1]":
-                opponentBoard[BoardPossibleWinScenarios.firstRow]++;
-                opponentBoard[BoardPossibleWinScenarios.secondColumn]++;
+                board[BoardPossibleWinScenarios.firstRow]++;
+                board[BoardPossibleWinScenarios.secondColumn]++;
                 break;
             case "[0,2]":
-                opponentBoard[BoardPossibleWinScenarios.firstRow]++;
-                opponentBoard[BoardPossibleWinScenarios.thirdColumn]++;
-                opponentBoard[BoardPossibleWinScenarios.forwardDiagonal]++;
+                board[BoardPossibleWinScenarios.firstRow]++;
+                board[BoardPossibleWinScenarios.thirdColumn]++;
+                board[BoardPossibleWinScenarios.forwardDiagonal]++;
                 break;
             case "[1,0]":
-                opponentBoard[BoardPossibleWinScenarios.secondRow]++;
-                opponentBoard[BoardPossibleWinScenarios.firstColumn]++;
+                board[BoardPossibleWinScenarios.secondRow]++;
+                board[BoardPossibleWinScenarios.firstColumn]++;
                 break;
             case "[1,1]":
-                opponentBoard[BoardPossibleWinScenarios.secondRow]++;
-                opponentBoard[BoardPossibleWinScenarios.secondColumn]++;
-                opponentBoard[BoardPossibleWinScenarios.forwardDiagonal]++;
-                opponentBoard[BoardPossibleWinScenarios.backDiagonal]++;
+                board[BoardPossibleWinScenarios.secondRow]++;
+                board[BoardPossibleWinScenarios.secondColumn]++;
+                board[BoardPossibleWinScenarios.forwardDiagonal]++;
+                board[BoardPossibleWinScenarios.backDiagonal]++;
                 break;
             case "[1,2]":
-                opponentBoard[BoardPossibleWinScenarios.secondRow]++;
-                opponentBoard[BoardPossibleWinScenarios.thirdColumn]++;
+                board[BoardPossibleWinScenarios.secondRow]++;
+                board[BoardPossibleWinScenarios.thirdColumn]++;
                 break;
             case "[2,0]":
-                opponentBoard[BoardPossibleWinScenarios.thirdRow]++;
-                opponentBoard[BoardPossibleWinScenarios.firstColumn]++;
-                opponentBoard[BoardPossibleWinScenarios.forwardDiagonal]++;
+                board[BoardPossibleWinScenarios.thirdRow]++;
+                board[BoardPossibleWinScenarios.firstColumn]++;
+                board[BoardPossibleWinScenarios.forwardDiagonal]++;
                 break;
             case "[2,1]":
-                opponentBoard[BoardPossibleWinScenarios.thirdRow]++;
-                opponentBoard[BoardPossibleWinScenarios.secondColumn]++;
+                board[BoardPossibleWinScenarios.thirdRow]++;
+                board[BoardPossibleWinScenarios.secondColumn]++;
                 break;
             case "[2,2]":
-                opponentBoard[BoardPossibleWinScenarios.thirdRow]++;
-                opponentBoard[BoardPossibleWinScenarios.thirdColumn]++;
-                opponentBoard[BoardPossibleWinScenarios.backDiagonal]++;
-                break;
-        }
-    }
-
-    public void incrementPlayerPositionScore(string positionToIncrement)
-    {
-        switch (positionToIncrement)
-        {
-            case "[0,0]":
-                playerBoard[BoardPossibleWinScenarios.firstRow]++;
-                playerBoard[BoardPossibleWinScenarios.firstColumn]++;
-                playerBoard[BoardPossibleWinScenarios.backDiagonal]++;
-                break;
-            case "[0,1]":
-                playerBoard[BoardPossibleWinScenarios.firstRow]++;
-                playerBoard[BoardPossibleWinScenarios.secondColumn]++;
-                break;
-            case "[0,2]":
-                playerBoard[BoardPossibleWinScenarios.firstRow]++;
-                playerBoard[BoardPossibleWinScenarios.thirdColumn]++;
-                playerBoard[BoardPossibleWinScenarios.forwardDiagonal]++;
-                break;
-            case "[1,0]":
-                playerBoard[BoardPossibleWinScenarios.secondRow]++;
-                playerBoard[BoardPossibleWinScenarios.firstColumn]++;
-                break;
-            case "[1,1]":
-                playerBoard[BoardPossibleWinScenarios.secondRow]++;
-                playerBoard[BoardPossibleWinScenarios.secondColumn]++;
-                playerBoard[BoardPossibleWinScenarios.forwardDiagonal]++;
-                playerBoard[BoardPossibleWinScenarios.backDiagonal]++;
-                break;
-            case "[1,2]":
-                playerBoard[BoardPossibleWinScenarios.secondRow]++;
-                playerBoard[BoardPossibleWinScenarios.thirdColumn]++;
-                break;
-            case "[2,0]":
-                playerBoard[BoardPossibleWinScenarios.thirdRow]++;
-                playerBoard[BoardPossibleWinScenarios.firstColumn]++;
-                playerBoard[BoardPossibleWinScenarios.forwardDiagonal]++;
-                break;
-            case "[2,1]":
-                playerBoard[BoardPossibleWinScenarios.thirdRow]++;
-                playerBoard[BoardPossibleWinScenarios.secondColumn]++;
-                break;
-            case "[2,2]":
-                playerBoard[BoardPossibleWinScenarios.thirdRow]++;
-                playerBoard[BoardPossibleWinScenarios.thirdColumn]++;
-                playerBoard[BoardPossibleWinScenarios.backDiagonal]++;
+                board[BoardPossibleWinScenarios.thirdRow]++;
+                board[BoardPossibleWinScenarios.thirdColumn]++;
+                board[BoardPossibleWinScenarios.backDiagonal]++;
                 break;
         }
     }
