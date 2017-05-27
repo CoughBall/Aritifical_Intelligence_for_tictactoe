@@ -8,15 +8,15 @@ using System.Collections;
 
 public class ColorControl : MonoBehaviour {
 
-    public Color BaseColor {
+    public Color32 BaseColor {
         get;
         set;
         }
-    public Color AlphaColor {
+    public Color32 AlphaColor {
         get;
         set;
         }
-    public Color InvisibleColor
+    public Color32 InvisibleColor
     {
         get;
         set;
@@ -26,7 +26,7 @@ public class ColorControl : MonoBehaviour {
     gameObject.GetComponent<Renderer>().material.color = color;
         }
 
-    public Color GetColor()
+    public Color32 GetColor()
     {
         return gameObject.GetComponent<Renderer>().material.color;
     }

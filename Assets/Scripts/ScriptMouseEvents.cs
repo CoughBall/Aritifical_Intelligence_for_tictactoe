@@ -69,11 +69,318 @@ public class ScriptMouseEvents : MonoBehaviour
                     renderPositionClicked(gameObject);
                     other.incrementPositionScore(parent.name, GameController.playerBoard);
                 }
-                findAFreePositionOnTheBoardAndClickIt();
+
+
+                MiniMax m = new MiniMax();
+                int position;
+                if (GameController.playersChoice.Equals("X"))
+                {
+                    position = -1;
+                }
+                else
+                    position = 1;
+
+
+                MiniMax.Position p = m.getBestPosition(position, convertBoardToInt(), position);
+                int newPosition = p.position;
+                foreach (GameObject position1 in GameController.positionArr)
+                {
+                    if(newPosition == 0 && position1.name == "[0,0]")
+                    {
+                        if (GameController.playersChoice != position1.transform.GetChild(0).gameObject.name)
+                        {
+                            renderPositionClicked(position1.transform.GetChild(0).gameObject);
+                            renderAiOtherChoiceInvisible(position1);
+                        }
+                        else
+                        {
+                            renderPositionClicked(position1.transform.GetChild(1).gameObject);
+                            renderAiOtherChoiceInvisible(position1);
+                        }
+                    }
+                    if (newPosition == 1 && position1.name == "[0,1]")
+                    {
+                        if (GameController.playersChoice != position1.transform.GetChild(0).gameObject.name)
+                        {
+                            renderPositionClicked(position1.transform.GetChild(0).gameObject);
+                            renderAiOtherChoiceInvisible(position1);
+                        }
+                        else
+                        {
+                            renderPositionClicked(position1.transform.GetChild(1).gameObject);
+                            renderAiOtherChoiceInvisible(position1);
+                        }
+                    }
+                    if (newPosition == 2 && position1.name == "[0,2]")
+                    {
+                        if (GameController.playersChoice != position1.transform.GetChild(0).gameObject.name)
+                        {
+                            renderPositionClicked(position1.transform.GetChild(0).gameObject);
+                            renderAiOtherChoiceInvisible(position1);
+                        }
+                        else
+                        {
+                            renderPositionClicked(position1.transform.GetChild(1).gameObject);
+                            renderAiOtherChoiceInvisible(position1);
+                        }
+                    }
+                    if (newPosition == 3 && position1.name == "[1,0]")
+                    {
+                        if (GameController.playersChoice != position1.transform.GetChild(0).gameObject.name)
+                        {
+                            renderPositionClicked(position1.transform.GetChild(0).gameObject);
+                            renderAiOtherChoiceInvisible(position1);
+                        }
+                        else
+                        {
+                            renderPositionClicked(position1.transform.GetChild(1).gameObject);
+                            renderAiOtherChoiceInvisible(position1);
+                        }
+                    }
+                    if (newPosition == 4 && position1.name == "[1,1]")
+                    {
+                        if (GameController.playersChoice != position1.transform.GetChild(0).gameObject.name)
+                        {
+                            renderPositionClicked(position1.transform.GetChild(0).gameObject);
+                            renderAiOtherChoiceInvisible(position1);
+                        }
+                        else
+                        {
+                            renderPositionClicked(position1.transform.GetChild(1).gameObject);
+                            renderAiOtherChoiceInvisible(position1);
+                        }
+                    }
+                    if (newPosition == 5 && position1.name == "[1,2]")
+                    {
+                        if (GameController.playersChoice != position1.transform.GetChild(0).gameObject.name)
+                        {
+                            renderPositionClicked(position1.transform.GetChild(0).gameObject);
+                            renderAiOtherChoiceInvisible(position1);
+                        }
+                        else
+                        {
+                            renderPositionClicked(position1.transform.GetChild(1).gameObject);
+                            renderAiOtherChoiceInvisible(position1);
+                        }
+                    }
+                    if (newPosition == 6 && position1.name == "[2,0]")
+                    {
+                        if (GameController.playersChoice != position1.transform.GetChild(0).gameObject.name)
+                        {
+                            renderPositionClicked(position1.transform.GetChild(0).gameObject);
+                            renderAiOtherChoiceInvisible(position1);
+                        }
+                        else
+                        {
+                            renderPositionClicked(position1.transform.GetChild(1).gameObject);
+                            renderAiOtherChoiceInvisible(position1);
+                        }
+                    }
+                    if (newPosition == 7 && position1.name == "[2,1]")
+                    {
+                        if (GameController.playersChoice != position1.transform.GetChild(0).gameObject.name)
+                        {
+                            renderPositionClicked(position1.transform.GetChild(0).gameObject);
+                            renderAiOtherChoiceInvisible(position1);
+                        }
+                        else
+                        {
+                            renderPositionClicked(position1.transform.GetChild(1).gameObject);
+                            renderAiOtherChoiceInvisible(position1);
+                        }
+                    }
+                    if (newPosition == 8 && position1.name == "[2,2]")
+                    {
+                        if (GameController.playersChoice != position1.transform.GetChild(0).gameObject.name)
+                        {
+                            renderPositionClicked(position1.transform.GetChild(0).gameObject);
+                            renderAiOtherChoiceInvisible(position1);
+                        }
+                        else
+                        {
+                            renderPositionClicked(position1.transform.GetChild(1).gameObject);
+                            renderAiOtherChoiceInvisible(position1);
+                        }
+                    }
+                }
+
+
+                   // findAFreePositionOnTheBoardAndClickIt();
+                m = null;
                 other.incrementPositionScore(parent.name, GameController.opponentBoard);
                 other.isGameOver();
             }
         }
+    }
+
+    private void renderAiOtherChoiceInvisible(GameObject position)
+    {
+        Color32 alphaColor = render.AlphaColor;
+        Color32 color;
+        for (int i = 0; i < position.transform.childCount; i++)
+        {
+            GameObject c = (GameObject)position.transform.GetChild(i).gameObject;
+            color = c.GetComponent<ColorControl>().GetColor();
+            if (color.ToString().Equals(alphaColor.ToString()))
+             c.GetComponent<ColorControl>().SetColor(render.InvisibleColor);
+        }
+    }
+
+    private int[] convertBoardToInt()
+    {
+        Color32 invisibleColor = GetComponent<ColorControl>().InvisibleColor;
+        int[] board = new int[9];
+        foreach (GameObject position in GameController.positionArr)
+        {
+                switch (position.name)
+                {
+                    case "[0,0]":
+                    if (!position.GetComponent<ScriptPosition>().isClicked)
+                    {
+                        board[0] = 0;
+                    }
+                    else
+                    {
+                        if (!position.transform.GetChild(0).GetComponent<ColorControl>().GetColor().Equals(invisibleColor) && position.transform.GetChild(0).gameObject.name == "X")
+                        {
+                            board[0] = 1;
+
+                        }
+                        else
+                            board[0] = -1;
+                    }
+                        break;
+                    case "[0,1]":
+                        if (!position.GetComponent<ScriptPosition>().isClicked)
+                        {
+                            board[1] = 0;
+                        }
+                        else
+                        {
+                            if (!position.transform.GetChild(0).GetComponent<ColorControl>().GetColor().Equals(invisibleColor) && position.transform.GetChild(0).gameObject.name == "X")
+                            {
+                                    board[1] = 1;
+                                
+                            }
+                             else
+                            board[1] = -1;
+                    }
+                    break;
+                    case "[0,2]":
+                        if (!position.GetComponent<ScriptPosition>().isClicked)
+                        {
+                            board[2] = 0;
+                        }
+                        else
+                        {
+                        if (!position.transform.GetChild(0).GetComponent<ColorControl>().GetColor().Equals(invisibleColor) && position.transform.GetChild(0).gameObject.name == "X")
+                        {
+                            board[2] = 1;
+
+                        }
+                        else
+                            board[2] = -1;
+                    }
+                    break;
+                    case "[1,0]":
+                        if (!position.GetComponent<ScriptPosition>().isClicked)
+                        {
+                            board[3] = 0;
+                        }
+                        else
+                        {
+                        if (!position.transform.GetChild(0).GetComponent<ColorControl>().GetColor().Equals(invisibleColor) && position.transform.GetChild(0).gameObject.name == "X")
+                        {
+                            board[3] = 1;
+
+                        }
+                        else
+                            board[3] = -1;
+                    }
+                    break;
+                    case "[1,1]":
+                        if (!position.GetComponent<ScriptPosition>().isClicked)
+                        {
+                            board[4] = 0;
+                        }
+                        else
+                        {
+                        if (!position.transform.GetChild(0).GetComponent<ColorControl>().GetColor().Equals(invisibleColor) && position.transform.GetChild(0).gameObject.name == "X")
+                        {
+                            board[4] = 1;
+
+                        }
+                        else
+                            board[4] = -1;
+                    }
+                    break;
+                    case "[1,2]":
+                        if (!position.GetComponent<ScriptPosition>().isClicked)
+                        {
+                            board[5] = 0;
+                        }
+                        else
+                        {
+                            if (!position.transform.GetChild(0).GetComponent<ColorControl>().GetColor().Equals(invisibleColor) && position.transform.GetChild(0).gameObject.name == "X")
+                            {
+                                board[5] = 1;
+
+                            }
+                            else
+                                board[5] = -1;
+                    }
+                    break;
+                    case "[2,0]":
+                        if (!position.GetComponent<ScriptPosition>().isClicked)
+                        {
+                            board[6] = 0;
+                        }
+                        else
+                        {
+                            if (!position.transform.GetChild(0).GetComponent<ColorControl>().GetColor().Equals(invisibleColor) && position.transform.GetChild(0).gameObject.name == "X")
+                            {
+                                board[6] = 1;
+
+                            }
+                            else
+                                board[6] = -1;
+                    }
+                    break;
+                    case "[2,1]":
+                        if (!position.GetComponent<ScriptPosition>().isClicked)
+                        {
+                            board[7] = 0;
+                        }
+                        else
+                        {
+                            if (!position.transform.GetChild(0).GetComponent<ColorControl>().GetColor().Equals(invisibleColor) && position.transform.GetChild(0).gameObject.name == "X")
+                            {
+                                board[7] = 1;
+
+                            }
+                            else
+                                board[7] = -1;
+                    }
+                    break;
+                    case "[2,2]":
+                        if (!position.GetComponent<ScriptPosition>().isClicked)
+                        {
+                            board[8] = 0;
+                        }
+                        else
+                        {
+                            if (!position.transform.GetChild(0).GetComponent<ColorControl>().GetColor().Equals(invisibleColor) && position.transform.GetChild(0).gameObject.name == "X")
+                            {
+                                board[8] = 1;
+
+                            }
+                            else
+                                board[8] = -1;
+                    }
+                    break;
+            }
+        }
+        return board;
     }
 
     private bool isPositionAlreadyClicked()
