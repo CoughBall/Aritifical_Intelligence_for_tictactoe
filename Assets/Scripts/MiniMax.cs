@@ -13,22 +13,27 @@ public class MiniMax
 
     private enum endGameScenarios { oWins = -1, tie = 0, xWins = 1 };
 
-    public Position getBestPosition(int calculateBestRouteFor, int[] gameBoard, int calculateIsWinFor, int position)
+    public Position getBestPosition(int calculateBestRouteFor, int[] gameBoard, int calculateIsWinFor, int position, int depth)
     {
-        int isWinGame = this.isWin(gameBoard, calculateIsWinFor);
+        int isWinGame = isWin(gameBoard, calculateIsWinFor);
+        if(isWinGame == -1 && depth == 2)   //to stop player from winning
+        {
+            return new Position(1, 2, position);    //if it doesnt work give it lowest position like -1
+        }
         if (isWinGame == 1 )
         {
-            return new Position(1, position);
+            return new Position(1, depth, position);
         }
         else if (isWinGame == -1)
         {
-            return new Position(-1, position);
+            return new Position(-1, depth, position);
         }
         else if(isBoardFull(gameBoard))
         {
-            return new Position(0, position);
+            return new Position(0, depth, position);
         }
-
+        depth++;
+        
         Position bestPosition = new Position();
         for (int i = 0; i < gameBoard.Length; i++)
         {
@@ -36,31 +41,35 @@ public class MiniMax
             {
                 gameBoard[i] = calculateBestRouteFor;
                 //invert calculation between the opponents, clone the board so it wont reflect in other positions
-                Position isPositionWin = getBestPosition(calculateBestRouteFor * -1, (int[])gameBoard.Clone(), calculateIsWinFor, i); 
-                if (isPositionWin.isWin >= bestPosition.isWin)
+                Position isPositionWin = getBestPosition(calculateBestRouteFor * -1, (int[])gameBoard.Clone(), calculateIsWinFor, i, depth);  
+                if ((isPositionWin.isWin >= bestPosition.isWin && isPositionWin.depth <= bestPosition.depth))
                 {
                     bestPosition.position = isPositionWin.position;
                     bestPosition.isWin = isPositionWin.isWin;
+                    bestPosition.depth = isPositionWin.depth;
                 }
                gameBoard[i] = 0;
             }
         }
-        return bestPosition;
+        depth--;
+        return bestPosition; 
     }
 
     public class Position
     {
         public int isWin = -1;
         public int position = 0;
+        public int depth = 8;
 
         public Position()
         {
 
         }
 
-        public Position(int isWin, int position)
+        public Position(int isWin, int depth, int position)
         {
             this.isWin = isWin;
+            this.depth = depth;
             this.position = position;
         }
     }
