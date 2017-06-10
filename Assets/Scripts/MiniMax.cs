@@ -13,57 +13,55 @@ public class MiniMax
 
     private enum endGameScenarios { oWins = -1, tie = 0, xWins = 1 };
 
-    public Position getBestPosition(int calculateBestRouteFor, int[] gameBoard, int calculateIsWinFor)
+    public Position getBestPosition(int calculateBestRouteFor, int[] gameBoard, int calculateIsWinFor, int position)
     {
-        int isWinGame = this.isWin(gameBoard, calculateBestRouteFor);
+        int isWinGame = this.isWin(gameBoard, calculateIsWinFor);
         if (isWinGame == 1 )
         {
-            return new Position(1, calculateBestRouteFor);
+            return new Position(1, position);
         }
         else if (isWinGame == -1)
         {
-            return new Position(-1, calculateBestRouteFor);
+            return new Position(-1, position);
         }
+        else if(isBoardFull(gameBoard))
+        {
+            return new Position(0, position);
+        }
+
         Position bestPosition = new Position();
         for (int i = 0; i < gameBoard.Length; i++)
         {
-            int isWin = 0;
             if (gameBoard[i] == 0)
             {
                 gameBoard[i] = calculateBestRouteFor;
-                Position isPositionWin = getBestPosition(calculateBestRouteFor * -1, (int[])gameBoard.Clone(), calculateIsWinFor);  //invert calculation between the opponents, clone the board so it wont reflect in other positions
-                //render the win to reflect for the AI
-                isWin = isPositionWin.calculateIsWinFor != calculateIsWinFor && isPositionWin.isWin == 1 ? -1 : 1;
-             
-                if (isWin >= bestPosition.isWin)
+                //invert calculation between the opponents, clone the board so it wont reflect in other positions
+                Position isPositionWin = getBestPosition(calculateBestRouteFor * -1, (int[])gameBoard.Clone(), calculateIsWinFor, i); 
+                if (isPositionWin.isWin >= bestPosition.isWin)
                 {
-                    bestPosition.position = i;
-                    bestPosition.isWin = isWin;
+                    bestPosition.position = isPositionWin.position;
+                    bestPosition.isWin = isPositionWin.isWin;
                 }
-                if(isWin == 1)
-                {
-                    return bestPosition;
-                }
+               gameBoard[i] = 0;
             }
         }
-        return bestPosition;    //only happens in tie
+        return bestPosition;
     }
 
     public class Position
     {
         public int isWin = -1;
-        public int position;
-        public int calculateIsWinFor;
+        public int position = 0;
 
         public Position()
         {
 
         }
 
-        public Position(int isWin, int calculateIsWinFor)
+        public Position(int isWin, int position)
         {
             this.isWin = isWin;
-            this.calculateIsWinFor = calculateIsWinFor;
+            this.position = position;
         }
     }
 

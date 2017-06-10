@@ -80,9 +80,11 @@ public class ScriptMouseEvents : MonoBehaviour
                 else
                     position = 1;
 
-
-                MiniMax.Position p = m.getBestPosition(position, convertBoardToInt(), position);
+                System.Boolean bla = true;
+                //MiniMax.Position bestPosition = new MiniMax.Position();
+                MiniMax.Position p = m.getBestPosition(position, convertBoardToInt(), position, 0);
                 int newPosition = p.position;
+                Debug.Log(p.isWin);
                 foreach (GameObject position1 in GameController.positionArr)
                 {
                     if(newPosition == 0 && position1.name == "[0,0]")
