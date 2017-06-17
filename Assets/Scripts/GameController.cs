@@ -1,107 +1,70 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System;
 
-/**
- * Handles game logic and AI
- */
-
+/// <summary>
+/// Does general operations that are global, such as calling minimax algo, converting the board from int to string, restarting the game, etc...
+/// </summary>
 public class GameController : MonoBehaviour
 {
 
-    private Player player;
-    public static GameObject[] positionArr;
+    public GameObject[] positionArr;
     public static string playersChoice = "";
     private Dictionary<string, bool> gameBoard; //TODO: fill this with the gameboard postions and if they are clicked - send for minimax
     public static Dictionary<BoardPossibleWinScenarios, int> playerBoard = new Dictionary<BoardPossibleWinScenarios, int>();
     public static Dictionary<BoardPossibleWinScenarios, int> opponentBoard = new Dictionary<BoardPossibleWinScenarios, int>();
     public enum BoardPossibleWinScenarios { firstRow, secondRow, thirdRow, firstColumn, secondColumn, thirdColumn, forwardDiagonal, backDiagonal };
-    public static bool isPlayersTurn = true;
+    /// <summary>
+    /// Used to map strings to int to convert the board from a data structure of Strings to int and otherwise
+    /// </summary>
+    private Dictionary<string, int> boardIntegerStringMapper = new Dictionary<string, int>
+        {
+            { "[0,0]", 0 }, { "[0,1]", 1 }, { "[0,2]", 2 },
+            { "[1,0]", 3 }, { "[1,1]", 4 }, { "[1,2]", 5 },
+            { "[2,0]", 6 }, { "[2,1]", 7 }, { "[2,2]", 8 },
+        };
 
-    /*protected static enum boardPicks {
-        Axe,
-        Circle
-        };*/
-
-    // the boards x's and circles
-    public GameObject[,] boardArr = new GameObject[3,3];
-    
-	// Use this for initialization
     void Awake()
     {
-        player = new Player();
-        initBoard();
-        initializePlayersScore();
-
-
+        InitBoard();
+        InitializePlayersScore();
         if (Application.loadedLevel.Equals(1))
         {
-             rollStart();
+            RollStart();
         }
-	}
+    }
 
-   
-
-    // fill boardArr with the data in each position
-    private void initBoard() {
-       
+    private void InitBoard()
+    {
         positionArr = GameObject.FindGameObjectsWithTag("Position");
-        for (int i = 0; i < positionArr.Length; i++) {
-            switch (positionArr[i].name) {
-                case "[0,0]":
-                    boardArr[0, 0] = positionArr[i];
-                    break;
-                case "[0,1]":
-                    boardArr[0, 1] = positionArr[i];
-                    break;
-                case "[0,2]":
-                    boardArr[0, 2] = positionArr[i];
-                    break;
-                case "[1,0]":
-                    boardArr[1, 0] = positionArr[i];
-                    break;
-                case "[1,1]":
-                    boardArr[1, 1] = positionArr[i];
-                    break;
-                case "[1,2]":
-                    boardArr[1, 2] = positionArr[i];
-                    break;
-                case "[2,0]":
-                    boardArr[2, 0] = positionArr[i];
-                    break;
-                case "[2,1]":
-                    boardArr[2, 1] = positionArr[i];
-                    break;
-                case "[2,2]":
-                    boardArr[2, 2] = positionArr[i];
-                    break;
-                }
-            }
-        } 
+    }
 
-    private void rollStart() {
+    private void RollStart()
+    {
         IEnumerable<int> playerRange;
         int rInt;
-        generateRandomNumber(out playerRange, out rInt);
+        GenerateRandomNumber(out playerRange, out rInt);
 
-        if (playerRange.Contains(rInt)) {
+        if (playerRange.Contains(rInt))
+        {
             Debug.Log("player");
         }
-        else {
+        else
+        {
             Debug.Log("AI");
         }
     }
 
-    private static void generateRandomNumber(out IEnumerable<int> playerRange, out int rInt) {
+    private static void GenerateRandomNumber(out IEnumerable<int> playerRange, out int rInt)
+    {
         playerRange = Enumerable.Range(0, 50);
         IEnumerable<int> aiRange = Enumerable.Range(51, 49);
         System.Random r = new System.Random();
         rInt = r.Next(0, 100);
     }
 
-    public void initializePlayersScore()
+    public void InitializePlayersScore()
     {
         int score = 0;
         foreach (BoardPossibleWinScenarios boardPossibleWinScenario in Enum.GetValues(typeof(BoardPossibleWinScenarios)))
@@ -112,12 +75,12 @@ public class GameController : MonoBehaviour
     }
 
     //TODO: finish, remember to check for tie as well !
-    public void isGameOver()
+    public void IsGameOver()
     {
         bool isGameOver = false;
         foreach (KeyValuePair<BoardPossibleWinScenarios, int> boardPosition in playerBoard)
         {
-            if(playerBoard[boardPosition.Key].Equals(3))
+            if (playerBoard[boardPosition.Key].Equals(3))
             {
                 Debug.Log("player win");
                 isGameOver = true;
@@ -132,24 +95,24 @@ public class GameController : MonoBehaviour
             }
         }
         int isTie = 0;
-        foreach(GameObject o in positionArr)
+        foreach (GameObject o in positionArr)
         {
-            ScriptPosition parentPosition = o.GetComponent<ScriptPosition>();
+            Position parentPosition = o.GetComponent<Position>();
             isTie = parentPosition.isClicked ? isTie + 1 : isTie;
         }
-        if(isTie == 9)
+        if (isTie == 9)
         {
             Debug.Log("tie");
             isGameOver = true;
 
         }
-        if(isGameOver)
+        if (isGameOver)
         {
-            restartGame();
+            RestartGame();
         }
     }
 
-    public void restartGame()
+    public void RestartGame()
     {
         playersChoice = "";
         //reset wins
@@ -159,18 +122,18 @@ public class GameController : MonoBehaviour
             opponentBoard[boardPossibleWinScenario] = 0;
         }
         //reset gamobjects
-        for (int i = 0; i < GameController.positionArr.Length; i++)
+        for (int i = 0; i < this.positionArr.Length; i++)
         {
-            positionArr[i].GetComponent<ScriptPosition>().isClicked = false;
-            for (int j = 0; j < GameController.positionArr[i].transform.childCount; j++)
+            positionArr[i].GetComponent<Position>().isClicked = false;
+            for (int j = 0; j < this.positionArr[i].transform.childCount; j++)
             {
-                GameObject xOrCircle = GameController.positionArr[i].transform.GetChild(j).gameObject;
+                GameObject xOrCircle = this.positionArr[i].transform.GetChild(j).gameObject;
                 xOrCircle.GetComponent<ColorControl>().SetColor(xOrCircle.GetComponent<ColorControl>().AlphaColor);
             }
         }
     }
 
-    public void incrementPositionScore(string positionToIncrement, Dictionary<BoardPossibleWinScenarios, int> board)
+    public void IncrementPositionScore(string positionToIncrement, Dictionary<BoardPossibleWinScenarios, int> board)
     {
         switch (positionToIncrement)
         {
@@ -219,8 +182,72 @@ public class GameController : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update() {
-	
-	}
+    /// <summary>
+    /// Plays the AI turn
+    /// </summary>
+    public void PlayAiTurn(GameObject gameObject)
+    {
+        int aiPlayChoice = GameController.playersChoice.Equals("X") ? -1 : 1;
+
+        MiniMax minimaxAlgo = new MiniMax();
+        EndTurnPosition bestPositionToEndTurn = minimaxAlgo.GetBestPosition(aiPlayChoice, ConvertBoardToInt(gameObject), aiPlayChoice, 0, 0);
+        int newBestPositionToPick = bestPositionToEndTurn.position;
+
+        foreach (GameObject boardPositions in this.positionArr)
+        {
+            foreach (KeyValuePair<string, int> integerStringMapperEntry in boardIntegerStringMapper)
+            {
+                if (integerStringMapperEntry.Key == boardPositions.name && integerStringMapperEntry.Value == newBestPositionToPick)
+                {
+                    if (GameController.playersChoice != boardPositions.transform.GetChild(0).gameObject.name)
+                    {
+                        gameObject.GetComponent<MouseEvents>().renderPositionClicked(boardPositions.transform.GetChild(0).gameObject);
+                        gameObject.GetComponent<ColorControl>().RenderAiOtherChoiceInvisible(boardPositions);
+                    }
+                    else
+                    {
+                        gameObject.GetComponent<MouseEvents>().renderPositionClicked(boardPositions.transform.GetChild(1).gameObject);
+                        gameObject.GetComponent<ColorControl>().RenderAiOtherChoiceInvisible(boardPositions);
+                    }
+                }
+            }
+        }
+        minimaxAlgo = null;
+    }
+
+    /// <summary>
+    /// Converts the board from strings of [x,y] to integers for the minimax algo
+    /// </summary>
+    private int[] ConvertBoardToInt(GameObject gameObject)
+    {
+        int[] boardAsIntegers = new int[9];
+        Color32 invisibleColor = gameObject.GetComponent<ColorControl>().InvisibleColor;
+        foreach (GameObject position in this.positionArr)
+        {
+            foreach (KeyValuePair<string, int> integerStringMapperEntry in boardIntegerStringMapper)
+            {
+                if (integerStringMapperEntry.Key == position.name)
+                {
+                    if (!position.GetComponent<Position>().isClicked)
+                    {
+                        boardAsIntegers[integerStringMapperEntry.Value] = 0;
+                    }
+                    else
+                    {
+                        if (!position.transform.GetChild(0).GetComponent<ColorControl>().GetColor().Equals(invisibleColor) && position.transform.GetChild(0).gameObject.name == "X")
+                        {
+                            boardAsIntegers[integerStringMapperEntry.Value] = 1;
+
+                        }
+                        else
+                        {
+                            boardAsIntegers[integerStringMapperEntry.Value] = -1;
+                        }
+                    }
+                }
+            }
+        }
+        return boardAsIntegers;
+    }
+
 }
