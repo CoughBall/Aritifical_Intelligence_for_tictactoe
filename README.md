@@ -27,7 +27,7 @@ Mostly google, stackoverflow and unity forums
 - [ ] clean up (moving all logic to game controller for example)
 - [ ] main menu
 - [ ] 2 players
-- [ ] minimax
+- [x] minimax
 - [ ] prettify
 - [ ] alert messages to the player
 - [ ] refactor to use only c# conventions
