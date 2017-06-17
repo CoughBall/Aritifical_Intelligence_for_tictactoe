@@ -30,7 +30,7 @@ Mostly google, stackoverflow and unity forums
 - [x] minimax
 - [ ] prettify
 - [ ] alert messages to the player
-- [ ] refactor to use only c# conventions
+- [x] refactor to use only c# conventions
 
 ### Contributors
 myself for now
@@ -49,3 +49,6 @@ although that was a day before I finished so not much use for it. I was surprise
 it serves the same purpose and bears the same name like my script ! maybe I ran into it in some time ago and forgot ?
 
 All in all and Despite all those issues I had great fun playing with this and learning new stuff !
+
+
+
