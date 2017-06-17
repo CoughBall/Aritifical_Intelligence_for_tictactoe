@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ColorControl" Collapsed="true">
+    <Position X="0.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAACAAQCAAAAAAAAAAAAAAAAAAAACAAAgAAQAAAEA=</HashCode>
+      <FileName>Assets\Scripts\ColorControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EndGamePosition" Collapsed="true">
+    <Position X="2.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\EndGamePosition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Board" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABBAAAACAAAAEAAAACAAAIAAAABAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Board.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GameController" Collapsed="true">
+    <Position X="5.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAEAAAAAAAEEQAgAACgAAAAoAIFAACIgAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\GameController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LoadOnClick" Collapsed="true">
+    <Position X="0.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\LoadOnClick.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MiniMax" Collapsed="true">
+    <Position X="2.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAIAAQAAAAAFIAAAAAIAAAAAAAAAAAAAAAAEAAAABE=</HashCode>
+      <FileName>Assets\Scripts\MiniMax.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Player" Collapsed="true">
+    <Position X="4" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScriptMouseEvents" Collapsed="true">
+    <Position X="5.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAgAAAACCAAAhAAABIAABCMAAgACAAIAAIAAEQAEA=</HashCode>
+      <FileName>Assets\Scripts\ScriptMouseEvents.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScriptPosition" Collapsed="true">
+    <Position X="0.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ScriptPosition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="EndGameScenario" Collapsed="true">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAGAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\EndGameScenario.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="BoardPositionChoice" Collapsed="true">
+    <Position X="2.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAgAQAA=</HashCode>
+      <FileName>Assets\Scripts\BoardPositionChoice.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

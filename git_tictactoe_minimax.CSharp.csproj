@@ -65,15 +65,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Board.cs" />
+    <Compile Include="Assets\Scripts\BoardPositionChoice.cs" />
     <Compile Include="Assets\Scripts\ColorControl.cs" />
-    <Compile Include="Assets\Scripts\EnumUtil.cs" />
+    <Compile Include="Assets\Scripts\EndTurnPosition.cs" />
+    <Compile Include="Assets\Scripts\EndGameScenario.cs" />
     <Compile Include="Assets\Scripts\GameController.cs" />
     <Compile Include="Assets\Scripts\LoadOnClick.cs" />
     <Compile Include="Assets\Scripts\MiniMax.cs" />
-    <Compile Include="Assets\Scripts\Player.cs" />
-    <Compile Include="Assets\Scripts\ScriptMouseEvents.cs" />
-    <Compile Include="Assets\Scripts\ScriptPosition.cs" />
-    <Compile Include="Assets\Scripts\TreeNode.cs" />
+    <Compile Include="Assets\Scripts\MouseEvents.cs" />
+    <Compile Include="Assets\Scripts\Position.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
