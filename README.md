@@ -14,7 +14,7 @@ The game was built using Unity - a game development platform, from the grounds u
 ### Describing a Tic Tac Toe game
 The game is played by two opposing players. It is a [Zero Sum](https://en.wikipedia.org/wiki/Zero-sum_game "https://en.wikipedia.org/wiki/Zero-sum_game") game, meaning there are only three possible outcomes - Win, Tie and Lose. If player A wins (+1) then player B (-1) losses (and their sum is -1+1=0, hence the name Zero Sum Game) if neither of them wins then its a tie (0). Consequently the outcome for each player is proportionally inversed to the other, if one goes up the other comes down.
 
-### Deciding on a implementation
+### Deciding on an implementation
 
 There are a couple of solutions that can be used, either Machine Learning or the Minimax heuristic algorithm. This project will focus on the Minimax implementation as a solution.
 
