@@ -20,7 +20,7 @@ There are a couple of solutions that can be used, either Machine Learning or the
 
 #### Minimax
 
-The [Minimax](https://en.wikipedia.org/wiki/Minimax, "https://en.wikipedia.org/wiki/Minimax") is a decision tree based heuristic algorithm, The game is abstracted into the following with specific implementations by myself:
+The [Minimax](https://en.wikipedia.org/wiki/Minimax "https://en.wikipedia.org/wiki/Minimax") is a decision tree based heuristic algorithm, The game is abstracted into the following with specific implementations by myself:
 
 - The board itself is represented as an array of 9 length { [][][],[][][],[][][] } , first three spots represents the first row where index 0 is top left corner, 1 is top middle corner and so on...
 - "X" is represented as "1" on the board, "O" is represented as "-1" (or otherwise) and empty is a "0"
