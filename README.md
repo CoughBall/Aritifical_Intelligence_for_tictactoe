@@ -43,7 +43,7 @@ As we are covering all the levels in the tree and in each level we need to gener
 
 <img src="https://imgur.com/azaRz4k.jpg" width="60%">
 
-Link: [https://www.desmos.com/calculator/c1mgr2ov7r](https://www.desmos.com/calculator/c1mgr2ov7r, "https://www.desmos.com/calculator/c1mgr2ov7r")
+Link: [https://www.desmos.com/calculator/fk8uubwjsy](https://www.desmos.com/calculator/fk8uubwjsy, "https://www.desmos.com/calculator/fk8uubwjsy")
 
 ##### Deterministic Algorithm
 This is considered to be a slow algorithm but if we take into account that its deterministic and bounded then its not the worst possible scenario to use it. As the game is alternating between the players, at the start there are 9 possible positions for a player to choose from going down with each turn until it reaches 0. If a player1 picks top left there are 8 places for player2 to choose from and so on and so forth... [Meaning there are at max 9! permutations (the order matters) of the game without repetitions, or 362,880 possible states at max](https://math.stackexchange.com/questions/1441350/combinations-of-tic-tac-toe, "https://math.stackexchange.com/questions/1441350/combinations-of-tic-tac-toe"), Nothing a modern CPU can't handle in a reasonable time.
