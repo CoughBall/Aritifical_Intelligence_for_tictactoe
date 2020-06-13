@@ -62,10 +62,10 @@ public class MouseEvents : MonoBehaviour
                 if (isCurrentSelectionPlayersChoice())
                 {
                     renderPositionClicked(gameObject);
-                    gameController.IncrementPositionScore(parent.name, GameController.playerBoard);
+                    gameController.IncrementPositionScore(parent.name, gameController.playerBoard);
                 }
                 gameController.PlayAiTurn(gameObject);
-                gameController.IncrementPositionScore(parent.name, GameController.opponentBoard);
+                gameController.IncrementPositionScore(parent.name, gameController.opponentBoard);
                 gameController.IsGameOver();
             }
         }

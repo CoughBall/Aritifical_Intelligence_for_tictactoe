@@ -1,21 +1,16 @@
-﻿using UnityEngine;
-using UnityEditor;
-
-/// <summary>
+﻿/// <summary>
 /// Class to hold values for a situation where we reached an end turn (<see cref="EndGameScenario"/>)
 /// </summary>
 public class EndTurnPosition
 {
-    public int isWin = (int)EndGameScenario.Lose;
-    public int position = 0;
-    public int depth = 8;
+    public int score;
+    public int position;
 
     public EndTurnPosition() { }
 
-    public EndTurnPosition(EndGameScenario isWin, int depth, int position)
+    public EndTurnPosition(int score)
     {
-        this.isWin = (int)isWin;
-        this.depth = depth;
-        this.position = position;
+        this.score = score;
     }
+
 }

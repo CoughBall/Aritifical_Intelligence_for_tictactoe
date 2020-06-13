@@ -1,0 +1,13 @@
+### Visual Studio ###
+# Files
+*.suo
+.userprefs
+
+# Folders
+.vs/
+Debug/
+
+### Unity ###
+# Folders
+Library/
+Temp/

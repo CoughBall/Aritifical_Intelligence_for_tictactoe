@@ -8,12 +8,15 @@ using System;
 /// </summary>
 public class GameController : MonoBehaviour
 {
-
+    MiniMax minimaxAlgo = new MiniMax();
     public GameObject[] positionArr;
+    //opponent to ai
     public static string playersChoice = "";
     private Dictionary<string, bool> gameBoard; //TODO: fill this with the gameboard postions and if they are clicked - send for minimax
-    public static Dictionary<BoardPossibleWinScenarios, int> playerBoard = new Dictionary<BoardPossibleWinScenarios, int>();
-    public static Dictionary<BoardPossibleWinScenarios, int> opponentBoard = new Dictionary<BoardPossibleWinScenarios, int>();
+    //player
+    public Dictionary<BoardPossibleWinScenarios, int> playerBoard = new Dictionary<BoardPossibleWinScenarios, int>();
+    //ai
+    public Dictionary<BoardPossibleWinScenarios, int> opponentBoard = new Dictionary<BoardPossibleWinScenarios, int>();
     public enum BoardPossibleWinScenarios { firstRow, secondRow, thirdRow, firstColumn, secondColumn, thirdColumn, forwardDiagonal, backDiagonal };
     /// <summary>
     /// Used to map strings to int to convert the board from a data structure of Strings to int and otherwise
@@ -188,11 +191,12 @@ public class GameController : MonoBehaviour
     public void PlayAiTurn(GameObject gameObject)
     {
         int aiPlayChoice = GameController.playersChoice.Equals("X") ? -1 : 1;
-
-        MiniMax minimaxAlgo = new MiniMax();
-        EndTurnPosition bestPositionToEndTurn = minimaxAlgo.GetBestPosition(aiPlayChoice, ConvertBoardToInt(gameObject), aiPlayChoice, 0, 0);
+        minimaxAlgo.aiPick = aiPlayChoice;
+        
+        EndTurnPosition bestPositionToEndTurn = minimaxAlgo.GetBestPosition(aiPlayChoice, ConvertBoardToInt(gameObject), 0);
         int newBestPositionToPick = bestPositionToEndTurn.position;
-
+        
+        //hide ai ui choices from player
         foreach (GameObject boardPositions in this.positionArr)
         {
             foreach (KeyValuePair<string, int> integerStringMapperEntry in boardIntegerStringMapper)
@@ -212,7 +216,6 @@ public class GameController : MonoBehaviour
                 }
             }
         }
-        minimaxAlgo = null;
     }
 
     /// <summary>

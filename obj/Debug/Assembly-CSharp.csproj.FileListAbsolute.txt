@@ -20,3 +20,26 @@ E:\Unity Projects\TicTacTow\Temp\bin\Debug\UnityEngine.Networking.xml
 E:\Unity Projects\TicTacTow\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
 E:\Unity Projects\TicTacTow\obj\Debug\Assembly-CSharp.dll
 E:\Unity Projects\TicTacTow\obj\Debug\Assembly-CSharp.pdb
+F:\projects\minimax_fix_one_step_bug\Temp\bin\Debug\Assembly-CSharp.dll
+F:\projects\minimax_fix_one_step_bug\Temp\bin\Debug\Assembly-CSharp.pdb
+F:\projects\minimax_fix_one_step_bug\Temp\bin\Debug\UnityEditor.dll
+F:\projects\minimax_fix_one_step_bug\Temp\bin\Debug\UnityEngine.dll
+F:\projects\minimax_fix_one_step_bug\Temp\bin\Debug\UnityEngine.Networking.dll
+F:\projects\minimax_fix_one_step_bug\Temp\bin\Debug\UnityEngine.UI.dll
+F:\projects\minimax_fix_one_step_bug\Temp\bin\Debug\Mono.Cecil.dll
+F:\projects\minimax_fix_one_step_bug\Temp\bin\Debug\Unity.SerializationLogic.dll
+F:\projects\minimax_fix_one_step_bug\Temp\bin\Debug\Unity.DataContract.dll
+F:\projects\minimax_fix_one_step_bug\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+F:\projects\minimax_fix_one_step_bug\Temp\bin\Debug\Unity.UNetWeaver.dll
+F:\projects\minimax_fix_one_step_bug\Temp\bin\Debug\Unity.CecilTools.dll
+F:\projects\minimax_fix_one_step_bug\Temp\bin\Debug\Mono.Cecil.Pdb.dll
+F:\projects\minimax_fix_one_step_bug\Temp\bin\Debug\Mono.Cecil.Mdb.dll
+F:\projects\minimax_fix_one_step_bug\Temp\bin\Debug\UnityEngine.xml
+F:\projects\minimax_fix_one_step_bug\Temp\bin\Debug\UnityEditor.xml
+F:\projects\minimax_fix_one_step_bug\Temp\bin\Debug\UnityEngine.UI.xml
+F:\projects\minimax_fix_one_step_bug\Temp\bin\Debug\UnityEngine.Networking.xml
+F:\projects\minimax_fix_one_step_bug\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
+F:\projects\minimax_fix_one_step_bug\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
+F:\projects\minimax_fix_one_step_bug\obj\Debug\Assembly-CSharp.csproj.CopyComplete
+F:\projects\minimax_fix_one_step_bug\obj\Debug\Assembly-CSharp.dll
+F:\projects\minimax_fix_one_step_bug\obj\Debug\Assembly-CSharp.pdb

@@ -1,48 +1,75 @@
-﻿using System;
+﻿using System; 
+using UnityEngine;
 
 public class MiniMax
 {
 
-    public EndTurnPosition GetBestPosition(int calculateBestRouteFor, int[] gameBoard, int calculateIsWinFor, int position, int depth)
+    public int aiPick;
+    
+    public EndTurnPosition GetBestPosition(int calculateBestRouteFor, int[] gameBoard, int depth)
     {
-        EndGameScenario isGameOver = IsGameOver(gameBoard, calculateIsWinFor);
-        if (isGameOver == EndGameScenario.Lose && depth == 2)   //to stop player from winning on his first move - trick the AI to think he won with the best possible Position to prevent opponent from winning
+        int isGameOver = IsGameOver(gameBoard);
+        if (IsBoardFull(gameBoard) && isGameOver == 0)  //tie
         {
-            return new EndTurnPosition(EndGameScenario.Win, 2, position);    //if it doesnt work give it lowest position like -1
+            return new EndTurnPosition(0);
         }
-        else if (isGameOver == EndGameScenario.Win)
+        else if (isGameOver == 10)  //win
         {
-            return new EndTurnPosition(EndGameScenario.Win, depth, position);
+            return new EndTurnPosition(10 - depth);
         }
-        else if (isGameOver == EndGameScenario.Lose)
+        else if (isGameOver == -10) //lose
         {
-            return new EndTurnPosition(EndGameScenario.Lose, depth, position);
-        }
-        else if (IsBoardFull(gameBoard))
-        {
-            return new EndTurnPosition(EndGameScenario.Tie, depth, position);
+            return new EndTurnPosition(depth - 10);
         }
         depth++;
-
-        EndTurnPosition bestPosition = new EndTurnPosition();
-        for (int i = 0; i < gameBoard.Length; i++)
+        EndTurnPosition levelBestPosition = createEndPositionForLevel(calculateBestRouteFor);
+        //iterate over this tree level (all possible moves for the current game state)
+        for (int boardPosition = 0; boardPosition < gameBoard.Length; boardPosition++)
         {
-            if (gameBoard[i] == 0)
+            //if current board position isnt filled by X or O
+            if (gameBoard[boardPosition] == 0)
             {
-                gameBoard[i] = calculateBestRouteFor;
-                //invert calculation between the opponents, clone the board so it wont reflect in other positions
-                EndTurnPosition isPositionWin = GetBestPosition(calculateBestRouteFor * -1, (int[])gameBoard.Clone(), calculateIsWinFor, i, depth);
-                if ((isPositionWin.isWin >= bestPosition.isWin && isPositionWin.depth <= bestPosition.depth))
+                gameBoard[boardPosition] = calculateBestRouteFor;
+                //invert turns between the opponents by multiplying by -1, clone the board (pass by value) so it wont reflect in other decisions on same level
+                EndTurnPosition newPosition = GetBestPosition(calculateBestRouteFor * -1, (int[])gameBoard.Clone(), depth);
+                //opponent to the AI - minimizes the result
+                if (aiPick != calculateBestRouteFor)
                 {
-                    bestPosition.position = isPositionWin.position;
-                    bestPosition.isWin = isPositionWin.isWin;
-                    bestPosition.depth = isPositionWin.depth;
+                    if (newPosition.score <= levelBestPosition.score)
+                    {
+                        levelBestPosition.position = boardPosition;
+                        levelBestPosition.score = newPosition.score;
+                    }
                 }
-                gameBoard[i] = 0;
+                else
+                {
+                    //AI - maximizes the result
+                    if (newPosition.score >= levelBestPosition.score)
+                    {
+                        levelBestPosition.position = boardPosition;
+                        levelBestPosition.score = newPosition.score;
+                    }
+                }
+                //clears the selection that was made so next iteration (which is a node in same tree level) represents the board without it - the next permutation
+                gameBoard[boardPosition] = 0;
             }
         }
-        depth--;
-        return bestPosition;
+        return levelBestPosition;
+    }
+
+    private EndTurnPosition createEndPositionForLevel(int calculateBestRouteFor)
+    {
+        EndTurnPosition levelBestPosition = new EndTurnPosition();
+        //set default values for AI and opponent so they always pick first position returned to override default
+        if (aiPick != calculateBestRouteFor)
+        {
+            levelBestPosition.score = int.MaxValue;
+        }
+        else
+        {
+            levelBestPosition.score = int.MinValue;
+        }
+        return levelBestPosition;
     }
 
     private bool IsBoardFull(int[] gameBoard)
@@ -60,10 +87,10 @@ public class MiniMax
     /// <summary>
     /// Checks if the current status of the game board is an end game
     /// </summary>
-    private EndGameScenario IsGameOver(int[] gameBoard, int calculateBestRouteFor)
+    private int IsGameOver(int[] gameBoard)
     {
-        //win = 1, lose = -1, tie =0
-        //x == 1, o == -1, tie == 0
+        //win = 10, lose = -10, tie = 0
+        //X == 1, O == -1
 
         int isWinRow = 0;
         int isWinForwardDiagonal = 0;   // /
@@ -71,7 +98,7 @@ public class MiniMax
         int rowNumber = 1;
         int rowSize = (int)Math.Sqrt(gameBoard.Length);
         int[] isWinColumnArr = new int[rowSize];
-        int winCondition = CreateWinCondition(calculateBestRouteFor);
+        int winCondition = CreateWinCondition(aiPick);
         int loseCondition = winCondition * -1;
 
         for (int i = 0; i < gameBoard.Length; i++)
@@ -86,14 +113,14 @@ public class MiniMax
 
             if (isWinForwardDiagonal == winCondition || isWinBackDiagonal == winCondition || isWinRow == winCondition || isWinColumnArr[i % rowSize] == winCondition)
             {
-                return EndGameScenario.Win;
+                return 10; //win
             }
             else if (isWinForwardDiagonal == loseCondition || isWinBackDiagonal == loseCondition || isWinRow == loseCondition || isWinColumnArr[i % rowSize] == loseCondition)
             {
-                return EndGameScenario.Lose;
+                return -10; //lose
             }
         }
-        return EndGameScenario.Tie;
+        return 0; //tie or nothing (nothing = board isnt full yet)
     }
 
     private void CalculateIsColumnWin(int[] gameBoard, int rowSize, int[] isWinColumnArr, int i)
