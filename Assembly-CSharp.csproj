@@ -55,6 +55,7 @@
      <Compile Include="Assets\Scripts\MiniMax.cs" />
      <Compile Include="Assets\Scripts\MouseEvents.cs" />
      <Compile Include="Assets\Scripts\Position.cs" />
+     <Compile Include="Assets\Scripts\TouchEvents.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

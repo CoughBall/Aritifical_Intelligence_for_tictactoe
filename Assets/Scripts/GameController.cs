@@ -21,11 +21,17 @@ public class GameController : MonoBehaviour
     /// <summary>
     /// Used to map strings to int to convert the board from a data structure of Strings to int and otherwise
     /// </summary>
-    private Dictionary<string, int> boardIntegerStringMapper = new Dictionary<string, int>
+    private Dictionary<string, int> boardStringIntegerMapper = new Dictionary<string, int>
         {
             { "[0,0]", 0 }, { "[0,1]", 1 }, { "[0,2]", 2 },
             { "[1,0]", 3 }, { "[1,1]", 4 }, { "[1,2]", 5 },
             { "[2,0]", 6 }, { "[2,1]", 7 }, { "[2,2]", 8 },
+        };
+    public Dictionary<int, string> boardIntegerStringMapper = new Dictionary<int, string>
+        {
+            {0, "[0,0]"}, {1, "[0,1]"}, {2,  "[0,2]" },
+            {3, "[1,0]" }, {4, "[1,1]" }, {5, "[1,2]" },
+            {6, "[2,0]" }, {7, "[2,1]" }, {8, "[2,2]" },
         };
 
     void Awake()
@@ -117,6 +123,7 @@ public class GameController : MonoBehaviour
 
     public void RestartGame()
     {
+        Debug.Log("restarting game");
         playersChoice = "";
         //reset wins
         foreach (BoardPossibleWinScenarios boardPossibleWinScenario in Enum.GetValues(typeof(BoardPossibleWinScenarios)))
@@ -188,7 +195,7 @@ public class GameController : MonoBehaviour
     /// <summary>
     /// Plays the AI turn
     /// </summary>
-    public void PlayAiTurn(GameObject gameObject)
+    public int PlayAiTurn(GameObject gameObject)
     {
         int aiPlayChoice = GameController.playersChoice.Equals("X") ? -1 : 1;
         minimaxAlgo.aiPick = aiPlayChoice;
@@ -199,7 +206,7 @@ public class GameController : MonoBehaviour
         //hide ai ui choices from player
         foreach (GameObject boardPositions in this.positionArr)
         {
-            foreach (KeyValuePair<string, int> integerStringMapperEntry in boardIntegerStringMapper)
+            foreach (KeyValuePair<string, int> integerStringMapperEntry in boardStringIntegerMapper)
             {
                 if (integerStringMapperEntry.Key == boardPositions.name && integerStringMapperEntry.Value == newBestPositionToPick)
                 {
@@ -216,6 +223,7 @@ public class GameController : MonoBehaviour
                 }
             }
         }
+        return newBestPositionToPick;
     }
 
     /// <summary>
@@ -227,7 +235,7 @@ public class GameController : MonoBehaviour
         Color32 invisibleColor = gameObject.GetComponent<ColorControl>().InvisibleColor;
         foreach (GameObject position in this.positionArr)
         {
-            foreach (KeyValuePair<string, int> integerStringMapperEntry in boardIntegerStringMapper)
+            foreach (KeyValuePair<string, int> integerStringMapperEntry in boardStringIntegerMapper)
             {
                 if (integerStringMapperEntry.Key == position.name)
                 {
