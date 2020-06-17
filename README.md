@@ -37,6 +37,8 @@ Although the tree alternates between the players with each level, the final resu
 
 <img src="https://imgur.com/d6QSzvG.png" width="60%">
 
+File: [levels.drawio](levels.drawio)
+
 ##### Asymptotic Analysis
 
 As we are covering all the levels in the tree and in each level we need to generate all the permutations from each node using DFS, we can define that the worst case is the only case which is either O(V+E) or O(b^d) for DFS (basically going all over it). There is a specific explanation for minimax [here](https://stackoverflow.com/questions/2080050/how-do-we-determine-the-time-and-space-complexity-of-minmax "https://stackoverflow.com/questions/2080050/how-do-we-determine-the-time-and-space-complexity-of-minmax") by user [Samuel](https://stackoverflow.com/users/253387/samuel "https://stackoverflow.com/users/253387/samuel"), it's basically the same as DFS.
@@ -65,6 +67,8 @@ We do this by adding the depth to the score
 Here's an example to clarify the changes:
 
 <img src="https://imgur.com/vmeAEmx.png" width="70%">
+
+File: [newHeuristic.drawio](newHeuristic.drawio)
 
 The max will take the highest score, which is  6 > 4
 The min will take the lowest score, which is -6 < -4
